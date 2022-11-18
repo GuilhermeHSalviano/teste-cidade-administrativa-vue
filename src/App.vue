@@ -1,26 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+	<div>
+		<header class="header-content">
+			<h1 class="title">Como é feito um CRUD?</h1>
+		</header>
+		<get-whole-list/>
+		<get-one-component/>
+	</div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GetWholeList from '../src/components/get-whole-list/GetWholeList.vue'
+import GetOneComponent from '../src/components/get-one-component/GetOneComponent.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+	components:{
+		GetWholeList,
+		GetOneComponent
+	}
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss" >
+@import '@/assets/reset-mixin.scss';
+@include reset;
+
+.header-content{
+	height: 30vh;
+	text-align: center;
+	width: 100%;
+
+	
 }
+
 </style>
