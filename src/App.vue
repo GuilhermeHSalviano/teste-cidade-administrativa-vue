@@ -3,7 +3,7 @@
 		<header class="header-content">
 			<h1 class="title">Como é feito um CRUD?</h1>
 		</header>
-		<get-whole-list :key="newObjectInList" />
+		<get-whole-list :key="newObjectInList" @rerenderingTheList="reload" />
 		<get-one-object/>
 		<post-one-object @thereIsANewObject="reload"/>
 	</div>
@@ -34,14 +34,18 @@ export default {
 
 <style lang="scss" >
 @import '@/assets/reset-mixin.scss';
+@import '@/assets/general-styles.scss';
 @include reset;
 
 .header-content{
-	height: 30vh;
-	text-align: center;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	height: 10vh;
 	width: 100%;
-
-	
+	h1{
+		@include title-font;
+	}
 }
 
 </style>
