@@ -1,9 +1,9 @@
 <template>
     <section class="container">
-        <h2 class="subtitle">Esta é uma lista com todos os dados obtidos da API, onde nossa primeira requisição é feita:</h2>
+        <h2 class="subtitle">Esta é uma lista com todos os dados obtidos da API. A cada mudança da API, a lista é automaticamente atualizada</h2>
         <ul class="api-list">
-            <li v-for="item in wholeList" :key="item.id">
-                <div :key="rerenderElement">
+            <li v-for="item in wholeList" :key="item.id" class="api-list__item">
+                <div :key="rerenderElement" class="item__content">
                     <p>Título: {{ item.title }}</p>
                     <p>Conteúdo: {{ item.content }}</p>
                     <my-button :buttonText="deleteButton" @buttonClick="deleteObjectFromApi(item.id)"/>
@@ -42,6 +42,7 @@ export default {
     },
     async created(){
         this.wholeList = await requestTheWholeListFromApi()
+        this.$emit('emittingList', this.wholeList)
         
     },
     methods:{
@@ -69,7 +70,30 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/general-styles.scss';
 
-    .subtitle{
-        @include subtitle-font;
+    .container{
+        @include blocks-of-requisitions;
+        .subtitle{
+            @include subtitle-font;
+        }
+
+        .api-list{
+            display: flex;
+            flex-wrap: wrap;
+            font-family: 'Open Sans', sans-serif;
+            margin: 1rem 0 1rem 0;
+
+            .api-list__item{
+                display: flex;
+                margin: 1rem 0 1rem 0;
+                width: 100%;
+
+                .item__content{
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        }
     }
+
+    
 </style>

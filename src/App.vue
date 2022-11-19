@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<header class="header-content">
-			<h1 class="title">Como é feito um CRUD?</h1>
+			<h1 class="title">Exemplo de CRUD básico</h1>
 		</header>
-		<get-whole-list :key="newObjectInList" @rerenderingTheList="reload" />
-		<get-one-object/>
+		<get-one-object :wholeList="list"/>
 		<post-one-object @thereIsANewObject="reload"/>
+		<get-whole-list :key="newObjectInList" @rerenderingTheList="reload" @emittingList="sendListToGetOneObjectComponent" />
 	</div>
 </template>
 <script>
@@ -21,12 +21,16 @@ export default {
 	},
 	data(){
 		return{
-			newObjectInList: 0
+			newObjectInList: 0,
+			list: []
 		}
 	},
 	methods:{
 		reload(){
 			this.newObjectInList++
+		},
+		sendListToGetOneObjectComponent(list){
+			this.list = list
 		}
 	}
 }

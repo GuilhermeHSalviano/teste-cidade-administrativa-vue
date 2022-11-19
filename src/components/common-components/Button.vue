@@ -20,5 +20,7 @@ export default {
 
 .my-button{
     @include my-button;
+
+    color: white;
 }
 </style>
