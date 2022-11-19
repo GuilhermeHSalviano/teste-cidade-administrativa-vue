@@ -9,9 +9,7 @@
         <p>Título: {{ dataFromRequest.title }}</p>
         <p>Conteúdo: {{ dataFromRequest.content }}</p>
     </div>
-    <div v-else-if="isRequestOk === false">
-        <p>A requisição falhou. Digite um ID válido.</p>
-    </div>
+    <span v-else-if="isRequestOk === false">A requisição falhou. Digite um ID válido</span>
 </template>
 <script>
 import Button from "../common-components/Button.vue"

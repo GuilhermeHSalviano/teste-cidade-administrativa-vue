@@ -7,16 +7,18 @@
         <input type="text" name="content" required v-model="contentInput">
         <my-button :buttonText="buttonString" @buttonClick="sendNewObjectToApi" />
     </form>
+	<span v-if="isRequestOk">Dados enviados com sucesso!</span>
+	<span v-else-if="isRequestOk == false">Ocorreu um erro. Seus dados não foram postados!</span>
 </template>
 <script>
 import Button from '../common-components/Button.vue'
 
-async function howManyItensInApi(){
+/*async function howManyItensInApi(){
     const response = await fetch('http://142.93.251.239/api/v1/posts/')
     const responseObject = await response.json()
     return responseObject.length
 
-}
+}*/
 
 export default {
     components:{
@@ -26,13 +28,30 @@ export default {
         return{
             buttonString: 'Enviar objeto',
             titleInput: '',
-            contentInput:''
+            contentInput:'',
+			isRequestOk: undefined
         }
     },
     methods:{
         async sendNewObjectToApi(){
-           const teste = await howManyItensInApi()
-           console.log(teste)
+			//const id = await howManyItensInApi()
+
+			fetch(`http://142.93.251.239/api/v1/posts/`, {
+				method: 'POST',
+				headers: {"Content-Type": "application/json"},
+				body: JSON.stringify({
+					title: this.titleInput,
+					content: this.contentInput
+				})
+			})
+			.then(response => {
+				if(response.status == 200){
+					this.isRequestOk = true
+					this.$emit('wholeListWithTheNewObject')
+				} else{
+					this.isRequestOk = false
+				}
+			})
         }
     }
 }
