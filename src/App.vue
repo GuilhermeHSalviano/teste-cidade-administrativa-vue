@@ -3,9 +3,9 @@
 		<header class="header-content">
 			<h1 class="title">Como é feito um CRUD?</h1>
 		</header>
-		<get-whole-list/>
+		<get-whole-list :key="newObjectInList" />
 		<get-one-object/>
-		<post-one-object/>
+		<post-one-object @thereIsANewObject="reload"/>
 	</div>
 </template>
 <script>
@@ -18,6 +18,16 @@ export default {
 		GetWholeList,
 		GetOneObject,
 		PostOneObject
+	},
+	data(){
+		return{
+			newObjectInList: 0
+		}
+	},
+	methods:{
+		reload(){
+			this.newObjectInList++
+		}
 	}
 }
 </script>

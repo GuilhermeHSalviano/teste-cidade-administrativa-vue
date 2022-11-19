@@ -12,13 +12,8 @@
 </template>
 <script>
 import Button from '../common-components/Button.vue'
+//import {requestTheWholeListFromApi} from '@/functions/functions.js'
 
-/*async function howManyItensInApi(){
-    const response = await fetch('http://142.93.251.239/api/v1/posts/')
-    const responseObject = await response.json()
-    return responseObject.length
-
-}*/
 
 export default {
     components:{
@@ -34,7 +29,6 @@ export default {
     },
     methods:{
         async sendNewObjectToApi(){
-			//const id = await howManyItensInApi()
 
 			fetch(`http://142.93.251.239/api/v1/posts/`, {
 				method: 'POST',
@@ -47,7 +41,7 @@ export default {
 			.then(response => {
 				if(response.status == 200){
 					this.isRequestOk = true
-					this.$emit('wholeListWithTheNewObject')
+					this.$emit('thereIsANewObject')
 				} else{
 					this.isRequestOk = false
 				}

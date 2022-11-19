@@ -12,16 +12,17 @@
     </section>
 </template>
 <script>
+import{requestTheWholeListFromApi} from '../../functions/functions.js'
+
 export default {
     data(){
         return{
             wholeList: ''
         }
     },
-    created(){
-        fetch('http://142.93.251.239/api/v1/posts/')
-        .then(response => response.json())
-        .then(objectResponse => this.wholeList = objectResponse)
+    async created(){
+        this.wholeList = await requestTheWholeListFromApi()
+        
     }
 }
 </script>
