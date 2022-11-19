@@ -4,17 +4,20 @@
 			<h1 class="title">Como é feito um CRUD?</h1>
 		</header>
 		<get-whole-list/>
-		<get-one-component/>
+		<get-one-object/>
+		<post-one-object/>
 	</div>
 </template>
 <script>
 import GetWholeList from '../src/components/get-whole-list/GetWholeList.vue'
-import GetOneComponent from '../src/components/get-one-component/GetOneComponent.vue'
+import GetOneObject from '../src/components/get-one-object/GetOneObject.vue'
+import PostOneObject from '../src/components/post-one-object/PostOneObject.vue'
 
 export default {
 	components:{
 		GetWholeList,
-		GetOneComponent
+		GetOneObject,
+		PostOneObject
 	}
 }
 </script>

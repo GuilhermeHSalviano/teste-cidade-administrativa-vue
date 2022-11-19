@@ -1,6 +1,6 @@
 <template>
      <form class="container" @submit.prevent="requestDataById">
-        <h2>Aqui fazemos uma requisição para um ID específico</h2>
+        <h2>Aqui, fazemos uma requisição para um ID específico</h2>
         <label for="requisitionId">Digite aqui o ID desejado</label>
         <input type="number" name="requisitionId" required v-model="inputData">
         <my-button :buttonText="buttonString" @buttonClick="requestDataById"/>
