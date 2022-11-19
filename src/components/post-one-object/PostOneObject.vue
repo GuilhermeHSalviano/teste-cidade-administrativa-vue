@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="sendNewObjectToApi">
+    <form @submit.prevent="sendNewobjectToApi">
         <h2>Aqui, criamos um novo objeto e enviamos à API.</h2>
         <label for="title">Digite aqui o título desejado</label>
         <input type="text" name="title" required v-model="titleInput">
@@ -29,7 +29,6 @@ export default {
     },
     methods:{
         async sendNewObjectToApi(){
-
 			fetch(`http://142.93.251.239/api/v1/posts/`, {
 				method: 'POST',
 				headers: {"Content-Type": "application/json"},
@@ -42,10 +41,13 @@ export default {
 				if(response.status == 200){
 					this.isRequestOk = true
 					this.$emit('thereIsANewObject')
+                    
 				} else{
 					this.isRequestOk = false
 				}
 			})
+            this.titleInput = ''
+            this.contentInput = ''
         }
     }
 }

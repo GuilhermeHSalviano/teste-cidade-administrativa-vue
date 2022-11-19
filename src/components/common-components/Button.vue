@@ -1,5 +1,5 @@
 <template>
-    <button class="my-button" @click="clickButton">{{ buttonText }}</button>
+    <button class="my-button" @click.self="clickButton">{{ buttonText }}</button>
 </template>
 <script>
 export default {
