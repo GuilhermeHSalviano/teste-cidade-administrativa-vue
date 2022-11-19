@@ -29,10 +29,12 @@ export default {
     },
     methods:{
         requestDataById(){
+            if(this.inputData == '') return
+            
             fetch(`http://142.93.251.239/api/v1/posts/${this.inputData}`)
             .then(response => {
                 if(response.status === 404){
-                    console.log('requisição falhou')
+                    console.log('A requisição falhou!')
                     this.isRequestOk = false
                     return
                 } else{
@@ -44,7 +46,7 @@ export default {
                 this.dataFromRequest = responseObject
                 this.inputData = ''
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log('Houve um problema de conexão!' + err))
         }
     }
 }
