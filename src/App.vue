@@ -32,6 +32,9 @@ export default {
 		sendListToGetOneObjectComponent(list){
 			this.list = list
 		}
+	},
+	created(){
+		console.log('teste')
 	}
 }
 </script>

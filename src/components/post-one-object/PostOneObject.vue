@@ -1,14 +1,16 @@
 <template>
     <div>
-        <form @submit.prevent="sendNewobjectToApi" class="container">
+        <form @submit.prevent="sendNewObjectToApi" class="container">
             <h2 class="subtitle">Aqui, criamos um novo objeto e enviamos à API.</h2>
             <label for="title">Digite aqui o título desejado</label>
             <input type="text" name="title" required v-model="titleInput">
             <label for="content">Digite aqui o conteúdo desejado</label>
             <input type="text" name="content" required v-model="contentInput">
             <my-button :buttonText="buttonString" @buttonClick="sendNewObjectToApi"/>
-            <p v-if="isRequestOk">Dados enviados com sucesso!</p>
-            <p v-else-if="isRequestOk == false">Ocorreu um erro. Seus dados não foram postados!</p>
+            <transition name="messages">
+                <p v-if="isRequestOk" class="successful-message">Dados enviados com sucesso!</p>
+                <p v-else-if="isRequestOk == false" class="warning">Ocorreu um erro. Seus dados não foram postados!</p>
+            </transition>
         </form>
     </div>
 </template>
@@ -28,7 +30,7 @@ export default {
         }
     },
     methods:{
-        async sendNewObjectToApi(){
+        sendNewObjectToApi(){
 			fetch(`http://142.93.251.239/api/v1/posts/`, {
 				method: 'POST',
 				headers: {"Content-Type": "application/json"},
@@ -44,10 +46,9 @@ export default {
                         this.isRequestOk = undefined
                     }, 3000)
 					this.$emit('thereIsANewObject')
-                    
 				} else{
 					this.isRequestOk = false
-                    setInterval(() => {
+                    setTimeout(() => {
                         this.isRequestOk = undefined
                     }, 3000)
 				}
@@ -63,11 +64,57 @@ export default {
 
 .container{
     @include blocks-of-requisitions;
+    display: flex;
+    flex-direction: column;
+    height: 17rem;
+    justify-content: flex-start;
 
     .subtitle{
         @include subtitle-font;
     }
 
     @include text-font;
+
+    label, input, my-button{
+        margin: 10px 0 10px 0;
+    }
+
+    input{
+        width: 15rem;
+    }
+
+    .warning{
+        @include warning;
+        height: 1rem;
+        white-space: nowrap;
+        width: min-content;        
+    }
+
+    .successful-message{
+        @include successful-message;
+        height: 1rem;
+        white-space: nowrap;
+        width: min-content;
+    }
+
+    .messages{
+        height: 1rem;
+    }
+
+    .messages-enter-active, .messages-leave-active{
+        height: 1rem;
+        opacity: 100;
+        transition-property: opacity;
+        transition-duration: 1.5s;
+    }
+
+    .messages-enter-to, .messages-leave-from{
+        height: 1rem;
+        opacity: 100;
+    }
+
+    .messages-enter-from, .messages-leave-to{
+        opacity: 0;
+    }
 }
 </style>
