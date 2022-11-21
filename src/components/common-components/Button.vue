@@ -23,4 +23,8 @@ export default {
 
     color: white;
 }
+
+.my-button:hover{
+    @include mouse-on-button;
+}
 </style>

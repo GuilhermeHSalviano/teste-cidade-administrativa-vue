@@ -8,13 +8,15 @@
                     <p>Conteúdo: {{ item.content }}</p>
                     <my-button :buttonText="deleteButton" @buttonClick="deleteObjectFromApi(item.id)"/>
                     <my-button :buttonText="updateButton" @buttonClick="updateButtonClicked = item.id"/>
-                    <div v-if="updateButtonClicked == item.id">
-                        <label for="title">Digite aqui o novo título desejado</label>
-                        <input type="text" name="title" required v-model="newTitleInput">
-                        <label for="content">Digite aqui o novo conteúdo desejado</label>
-                        <input type="text" name="content" required v-model="newContentInput">
-                        <my-button :buttonText="sendUpdatedDataButton" @buttonClick="sendUpdatedDataToApi(item.id)"/>
-                    </div>
+                    <transition name="edit">
+                        <div class="edit-box" v-if="updateButtonClicked == item.id">
+                            <label for="title">Digite aqui o novo título desejado</label>
+                            <input type="text" name="title" required v-model="newTitleInput">
+                            <label for="content">Digite aqui o novo conteúdo desejado</label>
+                            <input type="text" name="content" required v-model="newContentInput">
+                            <my-button :buttonText="sendUpdatedDataButton" @buttonClick="sendUpdatedDataToApi(item.id)"/>
+                        </div>
+                    </transition>
                 </div>
             </li>
         </ul>
@@ -49,9 +51,10 @@ export default {
         async deleteObjectFromApi(id){
             const deleteObject = await fetch(`http://142.93.251.239/api/v1/posts/${id}`, {method: 'DELETE'})
             if(deleteObject.status == 204){
-                console.log('A requisição foi um sucesso')
                 this.$emit('rerenderingTheList')
-            } 
+            } else{
+                console.log("Houve uma falha na requisição! " + deleteObject.status)
+            }
         },
         async sendUpdatedDataToApi(id){
             const updateData = await fetch(`http://142.93.251.239/api/v1/posts/${id}`, {
@@ -90,6 +93,35 @@ export default {
                 .item__content{
                     display: flex;
                     flex-direction: column;
+
+                    .edit-box{
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+                        left: 15rem;
+                        z-index: 1;
+
+                        label, input{
+                            margin: 0 0 5px 0;
+                        }
+                    }
+
+                    .edit-enter-active, .edit-leave-active{
+                        height: 5rem;
+                        opacity: 100;
+                        transition-property: all;
+                        transition-duration: 1.5s;
+                    }
+
+                    .edit-enter-to, .edit-leave-from{
+                        height: 2rem;
+                        opacity: 100;
+                    }
+
+                    .edit-enter-from, .edit-leave-to{
+                        height: 0;
+                        opacity: 0;
+                    }
                 }
             }
         }

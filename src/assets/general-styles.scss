@@ -31,11 +31,19 @@
     background-color: rgb(243, 158, 158);
     border-radius: 7px;
     color: red;
+    height: min-content;
+    padding: 2px;
+    white-space: nowrap;
+    width: min-content;
 }
 
 @mixin successful-message{
     background-color: rgb(156, 249, 156);
     border-radius: 7px;
     color: green;
+    height: min-content;
+    padding: 2px;
+    white-space: nowrap;
+    width: min-content;
 }
 
